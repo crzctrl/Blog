@@ -1,0 +1,87 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@*@model IEnumerable<Blog.Models.BlogPost>*@
+@model IPagedList<Blog.Models.BlogPost>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Created")
+        </th>
+        <th>
+            @Html.DisplayName("Updated")
+        </th>
+        <th>
+            @Html.DisplayName("Title")
+        </th>
+        @*<th>
+            @Html.DisplayName("Slug")
+        </th>*@
+        <th>
+            @Html.DisplayName("Abstract")
+        </th>
+        @*<th>
+            @Html.DisplayName("BlogPostBody")
+        </th>*@
+        <th>
+            @Html.DisplayName("ImagePath")
+        </th>
+        <th>
+            @Html.DisplayName("Published")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderByDescending(i => i.Created))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Abstract)
+            </td>
+            @*<td>
+                    @Html.Raw(item.BlogPostBody)
+            </td>*@
+            <td style="width: 10px; text-overflow: clip">
+                @Html.DisplayFor(modelItem => item.ImagePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Published)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { slug = item.Slug }) |
+                @Html.ActionLink("Details", "Details", new { slug = item.Slug }) |
+                @Html.ActionLink("Delete", "Delete", new { slug = item.Slug })
+            </td>
+        </tr>
+    }
+
+</table>
+</div>
+<div class="row mt-5 block-27">
+    <div class="col text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>

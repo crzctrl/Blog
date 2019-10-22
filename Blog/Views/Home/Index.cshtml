@@ -1,0 +1,60 @@
+﻿@using Blog.Models
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<BlogPost>
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+{
+    <div class="controls controls-row search-row" id="homeSearch">
+        <input id="searchStr" name="searchStr" class="input-block-level" type="text"
+                placeholder="Search">
+        <button id="searchStr" name="searchStr" class="btn btn-success" type="submit">
+            <i class="icon-search"></i>
+        </button>
+    </div>
+}
+<div class="row" style="clear:right">
+    @foreach (var blogPost in Model.OrderByDescending(b => b.Created))
+    {
+        <div class="col-md-6 bg-light p-4">
+            <div class="blog-entry ftco-animate">
+                <a href=@Url.Action("Details", "BlogPosts", new { slug = blogPost.Slug }) class="blog-image">
+                    @if (blogPost.ImagePath != null)
+                    {
+                        <img class="img-responsive" src="@blogPost.ImagePath" alt="" style="width: 100%; height: auto; border-radius: 50%" />
+                    }
+                </a>
+                <div class="text py-4">
+                    <div class="meta">
+                        <div><p>@blogPost.Created.ToString("MMM dd, yyyy hh:mm:ss tt")</p></div>
+                        <div><a href=@Url.Action("Contact","Home")>DaBoss</a></div>
+                    </div>
+                    <h3 class="heading"><a href=@Url.Action("Details", "BlogPosts", new { slug = blogPost.Slug })>@blogPost.Title</a></h3>
+                    <p>@blogPost.Abstract</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row mt-5 block-27">
+    <div class="col text-center">
+        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+    </div>
+    <ul>
+        <li id="top"><a href="#">Top</a></li>        
+    </ul>
+</div>
+@*<div class="block-27">
+        <ul>
+            <li><a href="#">&lt;</a></li>
+            <li class="active"><span>1</span></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&gt;</a></li>
+        </ul>
+    </div>*@

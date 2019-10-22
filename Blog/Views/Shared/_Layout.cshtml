@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>le blog de christopher</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="//fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
+
+    <link href="~/Content/open-iconic-bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Content/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/Content/magnific-popup.css" rel="stylesheet" />
+
+    <link href="~/Content/aos.css" rel="stylesheet" />
+
+    <link href="~/Content/ionicons.min.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+
+
+    <link href="~/Content/flaticon.css" rel="stylesheet" />
+    <link href="~/Content/icomoon.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    @*Custom*@
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <nav id="colorlib-main-nav" role="navigation">
+        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
+        <div class="js-fullheight colorlib-table">
+            <div class="colorlib-table-cell js-fullheight">
+                <div class="row d-flex justify-content-end">
+                    <div class="col-md-12 px-5">
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                        {
+                            <div class="controls controls-row search-row" id="navSearch">
+                                <input id="searchStr" name="searchStr" class="input-block-level" type="text"
+                                       placeholder="Search">
+                                <button id="searchStr" name="searchStr" class="btn btn-success" type="submit">
+                                    <i class="icon-search"></i>
+                                </button>
+                            </div>
+                        }
+                        <ul class="mb-5" style="clear:right">
+                            <li><a href="@Url.Action("Index","Home")"><span>Home</span></a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a href=@Url.Action("LogOff", "Account")><span>Log Off</span></a></li>
+                            }
+                            else
+                            {
+                                <li><a href=@Url.Action("Login", "Account")><span>Log In</span></a></li>
+                            }
+                            @*<li><a href="model.html"><span>Model</span></a></li>
+                             <li><a href="travel.html"><span>Travel</span></a></li>*@
+                            @*<li><a href=@Url.Action("About", "Home")><span>About us</span></a></li>*@
+                            <li><a href=@Url.Action("Contact","Home")><span>Contact</span></a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><a href=@Url.Action("Create","BlogPosts")><span>Create</span></a></li>                                
+                                <li><a href=@Url.Action("Index","BlogPosts")><span>Index</span></a></li>
+                            }
+                            else if (User.IsInRole("Moderator"))
+                            {
+                                <li><a href=@Url.Action("Index","Comments")><span>Index</span></a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col px-5 copyright">
+                        <p>
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved <br> | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="colorlib-page">
+        <header>
+            <div class="container-fluid">
+                <div class="row no-gutters">
+                    <div class="col-md-12">
+                        <div class="colorlib-navbar-brand">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="colorlib-logo" href=@Url.Action("Index", "Home")>DaBoss</a>
+                            }
+                            else if (User.IsInRole("Moderator"))
+                            {
+                                <a class="colorlib-logo" href=@Url.Action("Index", "Home")>Coder Foundry</a>
+                            }
+                            else if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="colorlib-logo" href=@Url.Action("Index", "Home")>Welcome</a>
+                            }
+                            else
+                            {
+                                <a class="colorlib-logo" href=@Url.Action("Index", "Home")>Reverie</a>
+                            }
+                        </div>
+                        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="ftco-fixed clearfix">
+            <div class="image js-fullheight float-left">
+                <div class="home-slider owl-carousel js-fullheight">
+                    <div class="slider-item js-fullheight" style="background-image: url('/images/bg_1.jpg');">
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <div class="row slider-text align-items-end" data-scrollax-parent="true">
+                                <div class="col-md-10 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                                    @*<p class="cat"><span>Fashion</span></p>
+                                    <h1 class="mb-3" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Popular Lifestyle with Fashion &amp; Modeling</h1>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slider-item js-fullheight" style="background-image: url('/images/bg_2.jpg');">
+                        <div class="overlay"></div>
+                        <div class="container">
+                            <div class="row slider-text align-items-end" data-scrollax-parent="true">
+                                <div class="col-md-10 col-sm-12 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                                    <p class="cat"><span>Check this out!</span></p>
+                                    <a href="https://christopherli.azurewebsites.net/" target="_blank"><h1 class="mb-3" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">portefeuille de christopher</h1></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-container float-right">
+                @RenderBody()
+            </div>
+        </section>
+
+        <!-- loader -->
+        <div id="ftco-loader" class="show fullscreen">
+            <svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
+        </div>
+
+    </div>
+
+
+
+            <script src="~/Scripts/jquery.min.js"></script>
+            <script src="~/Scripts/jquery-migrate-3.0.1.min.js"></script>
+            <script src="~/Scripts/popper.min.js"></script>
+            <script src="~/Scripts/bootstrap.min.js"></script>
+            <script src="~/Scripts/jquery.easing.1.3.js"></script>
+            <script src="~/Scripts/jquery.waypoints.min.js"></script>
+            <script src="~/Scripts/jquery.stellar.min.js"></script>
+            <script src="~/Scripts/owl.carousel.min.js"></script>
+            <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+            <script src="~/Scripts/aos.js"></script>
+            <script src="~/Scripts/jquery.animateNumber.min.js"></script>
+            <script src="~/Scripts/scrollax.min.js"></script>
+            <script src="~/Scripts/bootstrap-datepicker.js"></script>
+            <script src="~/Scripts/jquery.timepicker.min.js"></script>
+            <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+            <script src="~/Scripts/google-map.js"></script>
+            <script src="~/Scripts/main.js"></script>
+
+            <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+            <script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+            <script>
+                $(function () {
+                    tinymce.init({
+                        selector: '#BlogPostBody,#Body'
+                    });
+                });
+            </script>
+
+            @RenderSection("scripts", required: false)
+</body>
+</html>

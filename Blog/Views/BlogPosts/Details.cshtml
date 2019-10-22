@@ -1,0 +1,192 @@
+﻿@model Blog.Models.BlogPost
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        @*<h2 class="mb-3">@Html.DisplayFor(model => model.Title)</h2>
+        <p> @Html.DisplayFor(model => model.Abstract)</p>*@
+        <div class="bg-light p-4" style="text-align:center">
+            <p>
+                @if (Model.ImagePath != null)
+                {
+                    <img class="img-responsive" src="@Model.ImagePath" alt="" style="width: 100%; height: auto; border-radius: 5px" />
+                }
+            </p>
+            <p> @Html.Raw(Model.BlogPostBody)</p>
+        </div>
+        @*<div class="tag-widget post-tag-container mb-5 mt-5">
+                <div class="tagcloud">
+                    <a href="#" class="tag-cloud-link">Life</a>
+                    <a href="#" class="tag-cloud-link">Sport</a>
+                    <a href="#" class="tag-cloud-link">Tech</a>
+                    <a href="#" class="tag-cloud-link">Travel</a>
+                </div>
+            </div>*@
+
+        <div class="pt-5 mt-5">
+            <h3 class="mb-5">Comments</h3>
+            @foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+            {
+                <ul class="comment-list">
+                    <li class="comment">
+                        <div class="vcard bio">
+                            <img src="~/images/person_1.jpg" alt="Image placeholder">
+                        </div>
+                        <div class="comment-body">
+                            <h3>@comment.Author</h3>
+                            <div class="meta">@comment.Created.ToString("MMM dd, yyyy HH:mm:ss tt")</div>
+                            <p>@Html.Raw(comment.Body)</p>
+                            @*<p><a href="#" class="reply">Reply</a></p>*@
+                        </div>
+                    </li>
+                </ul>
+            }
+            <!-- END comment-list -->
+        </div>
+    </div> <!-- .col-md-12 -->
+</div>
+
+<div class="bg-light p-4">
+    <h3 class="mb-5">Leave a comment</h3>
+    @if (User.Identity.IsAuthenticated)
+    {
+        using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("BlogPostId", Model.Id)            
+
+
+            <div class="form-group">
+                @*<label for="message">Message</label>*@
+                @Html.TextArea("Body", new { @class = "form-control", @rows = 10, @cols = 30 })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+            </div>
+        }
+    }
+    else
+    {
+        <P style="text-align: center"><a href=@Url.Action("Login", "Account")>Login</a> to drop a comment</P>
+    }
+</div>
+
+@*Default Code*@
+@*<h2>Details</h2>
+
+    <div>
+        <h4>BlogPost</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Updated)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Slug)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Abstract)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Abstract)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BlogPostBody)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BlogPostBody)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ImagePath)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Published)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Published)
+            </dd>
+
+        </dl>
+    </div>*@
+
+@*<div class="comment-form-wrap pt-5">
+    <h3 class="mb-5">Leave a comment</h3>
+    <form action="#" class="bg-light p-4">
+        @if (User.Identity.IsAuthenticated)
+        {
+            using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("BlogPostId", Model.Id)
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                    @Html.TextArea("Body", new { @id = "message", @class = "form-control", @rows = 10, @cols = 30 })
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                </div>
+            }
+        }
+    </form>
+</div>*@
+
+@if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+{
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { slug = Model.Slug }) |*@
+    @Html.ActionLink("Index", "Index", "Comments")
+</p>
+}
+
+@*<div class="row mt-5">
+    <div class="col text-center">
+        <div class="block-27" style="font-size:small">
+            <ul>
+                <li><a href="#">&lt;</a></li>
+                <li><a href=@Url.Action("Index", "Home")>Home</a></li>
+                <li><a href="#">&gt;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>*@
