@@ -75,6 +75,8 @@ namespace Blog
         {
         }
 
+        public PersonalEmail PersonalEmail { get; set; }
+
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
@@ -112,6 +114,7 @@ namespace Blog
                 BodyFormat = "Your security code is {0}"
             });
             manager.EmailService = new EmailService();
+            manager.PersonalEmail = new PersonalEmail();
             manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
