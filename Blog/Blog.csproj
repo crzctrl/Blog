@@ -225,7 +225,6 @@
     <Content Include="Scripts\aos.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\google-map.js" />
     <Content Include="Scripts\jquery-migrate-3.0.1.min.js" />
     <Content Include="Scripts\jquery.animateNumber.min.js" />
     <Content Include="Scripts\jquery.easing.1.3.js" />
