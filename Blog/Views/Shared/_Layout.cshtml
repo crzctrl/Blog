@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Blog.Models
+@using Microsoft.AspNet.Identity
+@{ 
+    var db = new ApplicationDbContext();
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>le blog de christopher</title>
@@ -88,7 +93,7 @@
     </nav>
 
     <div id="colorlib-page">
-        <header>
+        <header id="mobileNav">
             <div class="container-fluid">
                 <div class="row no-gutters">
                     <div class="col-md-12">
@@ -103,7 +108,7 @@
                             }
                             else if (User.Identity.IsAuthenticated)
                             {
-                                <a class="colorlib-logo" href=@Url.Action("Index", "Home")>Welcome</a>
+                                <a class="colorlib-logo" href=@Url.Action("Index", "Home")>Welcome<br />@db.Users.Find(User.Identity.GetUserId()).DisplayName</a>
                             }
                             else
                             {
