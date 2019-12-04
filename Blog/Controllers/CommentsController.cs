@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Blog.Controllers
 {
@@ -53,10 +54,11 @@ namespace Blog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "Id,BlogPostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
+        public ActionResult Create([Bind(Include = "Id,BlogPostId,Body,Created,Updated,UpdateReason")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.AuthorId = User.Identity.GetUserId();
                 comment.Created = DateTime.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();

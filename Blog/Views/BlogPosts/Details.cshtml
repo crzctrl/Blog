@@ -37,8 +37,8 @@
                             <img src="~/images/person_1.jpg" alt="Image placeholder">
                         </div>
                         <div class="comment-body">
-                            <h3>@comment.Author</h3>
-                            <div class="meta">@comment.Created.ToString("MMM dd, yyyy HH:mm:ss tt")</div>
+                            <h3>@comment.Author.DisplayName</h3>
+                            <div class="meta">@comment.Created.ToString("MMM dd, yyyy hh:mm:ss tt")</div>
                             <p>@Html.Raw(comment.Body)</p>
                             @*<p><a href="#" class="reply">Reply</a></p>*@
                         </div>

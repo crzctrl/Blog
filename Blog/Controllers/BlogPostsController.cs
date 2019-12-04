@@ -82,7 +82,6 @@ namespace Blog.Controllers
                     blogPost.ImagePath = "/Uploads/" + fileName;
                 }
                 blogPost.Slug = Slug;
-                System.Globalization.CultureInfo.CurrentCulture.ClearCachedData();
                 blogPost.Created = DateTime.Now;
                 db.Posts.Add(blogPost);
                 db.SaveChanges();

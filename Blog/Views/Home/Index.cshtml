@@ -27,7 +27,7 @@
                 </a>
                 <div class="text py-4">
                     <div class="meta">
-                        <div><p>@blogPost.Created.ToString("MMM dd, yyyy hh:mm:ss tt")</p></div>
+                        <div><p>@blogPost.Created.ToString("MMM dd, yyyy hh:mm tt")</p></div>
                         <div><a href=@Url.Action("Contact","Home")>DaBoss</a></div>
                     </div>
                     <h3 class="heading"><a href=@Url.Action("Details", "BlogPosts", new { slug = blogPost.Slug })>@blogPost.Title</a></h3>
