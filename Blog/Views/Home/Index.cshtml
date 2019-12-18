@@ -22,7 +22,7 @@
                 <a href=@Url.Action("Details", "BlogPosts", new { slug = blogPost.Slug }) class="blog-image">
                     @if (blogPost.ImagePath != null)
                     {
-                        <img class="img-responsive" src="@blogPost.ImagePath" alt="" style="width: 100%; height: auto; border-radius: 50%" />
+                        <img class="img-responsive" src="@blogPost.ImagePath" alt="" style="width: 100%; height: 400px; border-radius: 50%" />
                     }
                 </a>
                 <div class="text py-4">
